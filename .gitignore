@@ -6,3 +6,4 @@ venv
 *.xml
 *.xml
 *.tex
+.idea/*
