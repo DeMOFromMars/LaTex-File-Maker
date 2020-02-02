@@ -25,17 +25,17 @@ if sopUser == "s" or sopUser == "S":
 if sopUser == "p" or sopUser == "P":
     for x in num:
         file.write("\\paragraph{Problem " + str(x + 1) + "}\n\n")
+if sopUser == "a" or sopUser == "A":
+    for x in range(0, number):
+        file.write("\\section{Problem " + str(x + 1) + "}\n\n")
+        secondary = 0
+        secondary = int(input("How many subsections?"))
+        char = "a"
+        i = ord(char[0])
 
-for x in range(0, number):
-    file.write("\\section{Problem " + str(x + 1) + "}\n\n")
-    secondary = 0
-    secondary = int(input("How many subsections?"))
-    char = "a"
-    i = ord(char[0])
-
-    for x in range(0, secondary):
-        char = chr(i)
-        file.write("\\subsection{" + char + ".)}\n\n")
-        i += 1
+        for x in range(0, secondary):
+            char = chr(i)
+            file.write("\\subsection{" + char + ".)}\n\n")
+            i += 1
 file.write("\\end{document}")
 file.close()
