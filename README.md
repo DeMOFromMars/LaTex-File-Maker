@@ -1,6 +1,8 @@
 # LatexTemplate
 This is to create a latex file that contains a certain number of sections. 
 
+Requires Python
+
 ## How to use?
 Currently, you will have to copy and paste the python file to the active directory as I have not optimized it. Once you move it, you just follow the prompts.
 
