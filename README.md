@@ -6,5 +6,8 @@ Currently, you will have to copy and paste the python file to the active directo
 
 There is an option called 'a' that can be used to make subsections. 
 
+Note: Please look at issue 'Need to update instructions' #8 
+
+
 ## Purpose
 I am using this for my classes. I like using Latex, but I have to keep typing the same thing over and over again or make subsections that are just incrementing numbers.
