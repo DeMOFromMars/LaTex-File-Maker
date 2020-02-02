@@ -1,9 +1,11 @@
-Test*
-venv
-.idea
-.idea/workspace.xml
-.idea/workspace.xml
+# Latex Template Git Ignore File
 *.xml
-*.xml
+
+# Generated Files
 *.tex
-.idea/*
+
+# LaTex Compiled Files
+*.aux
+*.log
+*.pdf
+*.gz
