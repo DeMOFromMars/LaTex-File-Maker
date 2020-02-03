@@ -3,6 +3,7 @@
 
 
 
+
 fileName = input("Please Enter File Name (no extension): ")
 file = open(fileName + ".tex", "w+")
 file.write("\\documentclass[12pt]{article}\n\n")
@@ -39,3 +40,4 @@ if sopUser == "a" or sopUser == "A":
             i += 1
 file.write("\\end{document}")
 file.close()
+print("Test")
