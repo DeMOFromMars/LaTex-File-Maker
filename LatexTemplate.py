@@ -2,7 +2,6 @@
 # By Devin M. O'Brien (MasterOfAllEvil)
 
 
-
 fileName = input("Please Enter File Name (no extension): ")
 file = open(fileName + ".tex", "w+")
 file.write("\\documentclass[12pt]{article}\n\n")
@@ -14,7 +13,7 @@ file.write("\\author{" + author + "}\n")
 file.write("\\begin{document}\n")
 sopUser = input("Would you like sections or paragraphs?(s/p)")
 
-number = int(input("How many?"))
+number = int(input("How many sections?"))
 
 num = range(0, number)
 
@@ -29,7 +28,7 @@ if sopUser == "a" or sopUser == "A":
     for x in range(0, number):
         file.write("\\section{Problem " + str(x + 1) + "}\n\n")
         secondary = 0
-        secondary = int(input("How many subsections?"))
+        secondary = int(input(str(x + 1) + ").How many subsections?"))
         char = "a"
         i = ord(char[0])
 
