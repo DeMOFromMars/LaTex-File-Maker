@@ -1,7 +1,4 @@
 # Latex Template
-# By Devin M. O'Brien (MasterOfAllEvil)
-
-
 
 fileName = input("Please Enter File Name (no extension): ")
 file = open(fileName + ".tex", "w+")
