@@ -12,7 +12,7 @@ file.write("\\title{" + title + "}\n")
 author = input("Author: ")
 file.write("\\author{" + author + "}\n")
 file.write("\\begin{document}\n")
-sopUser = input("Would you like sections or paragraphs?(s/p)")
+sopUser = input("Would you like sections or paragraphs?(s/p/a)")
 
 number = int(input("How many?"))
 
