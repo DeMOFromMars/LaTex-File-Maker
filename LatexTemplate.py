@@ -30,6 +30,7 @@ def backup(name):
 
 def create():
     fileName = input("Please Enter File Name (no extension): ")
+    backup(fileName)
     file = open(fileName + ".tex", "w+")
 
     # Creates Header
