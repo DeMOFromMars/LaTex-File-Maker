@@ -13,19 +13,25 @@ def start():
     user = input("Would you like to create a new file or load an existing file (n/l):")
     user = user.upper()
     option = checker(user, ["N", "L"])
-    print(str(option))
-    if user != "N" and user != "L":
-        print("Invalid Input")
-
-    if user == "N":
+    if option == 0:
         create()
     else:
-        load()
+        if option == 1:
+            load()
+        else:
+            print("Invalid Input")
 
+def backup(name):
+    orig = open(name + ".tex", "r")
+    file = open(name + "[BACKUP].tex", "w+")
+    data = orig.readlines()
+    for x in data:
+        file.write(x)
 
 def create():
     fileName = input("Please Enter File Name (no extension): ")
     file = open(fileName + ".tex", "w+")
+
     # Creates Header
 
     file.write("\\documentclass[12pt]{article}\n\n")
@@ -66,14 +72,14 @@ def create():
 
 
 def load():
-    name = "HandsOn4.tex"
+    name = input("File Name: ")
     file = open(name, "r")
     data = file.readlines()
     file.close()
     counter = 0
     for x in data:
         counter += 1
-        if x == "<|>\n":
+        if x == "<|>\n": #Symbol
             print("Found?" + str(counter))
             data.insert(counter, "Testing\n")
             file = open(name, "w")

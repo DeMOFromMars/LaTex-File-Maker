@@ -1,6 +1,6 @@
 # Attempt to dissect Latex File Anatomy
 # Currently Does not doe anything
-class LatexFile
+class LatexFile:
     class Head:
 
         def createDocClass(self):
@@ -30,7 +30,14 @@ class LatexFile
         def __str__(self):
             return "Title: " + self.title + "; Author: " + self.author + "; Date: " + self.date + "; DocType: " + self.doctype + "; Modifiers: " + self.mod
     class Body:
-        
+
+        def paragraph(text):
+            return "\paragraph{" + text + "}"
+        def section(text):
+            return "\section{" + text + "}"
+
+
+
 
 current = Head()
 print(str(current))
