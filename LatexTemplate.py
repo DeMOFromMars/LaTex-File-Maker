@@ -66,7 +66,22 @@ def create():
 
 
 def load():
-    print("PLACEHOLDER!")
+    name = "HandsOn4.tex"
+    file = open(name, "r")
+    data = file.readlines()
+    file.close()
+    counter = 0
+    for x in data:
+        counter += 1
+        if x == "<|>\n":
+            print("Found?" + str(counter))
+            data.insert(counter, "Testing\n")
+            file = open(name, "w")
+            for x in data:
+                file.write(x)
+            file.close()
+    print(data[0])
+
 
 
 start()
