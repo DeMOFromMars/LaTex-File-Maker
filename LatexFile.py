@@ -18,6 +18,8 @@ class Head:
     def getAuthor(self):
         return str(self.author)
 
+    def
+
     def __init__(self, doctype = "article", mod = "12pt", title = "Test", author = "tester", date = "2/2/2020"):
         self.doctype = doctype
         self.title = title
