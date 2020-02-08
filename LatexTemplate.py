@@ -14,6 +14,7 @@ def start():
     user = input("Would you like to create a new file or load an existing file (n/l):")
     user = user.upper()
     option = checker(user, ["N", "L"])
+    print(str(option))
     if option == 0:
         create()
     else:
@@ -32,7 +33,7 @@ def backup(name):
 
 def create():
     fileName = input("Please Enter File Name (no extension): ")
-    backup(fileName)
+    
     file = open(fileName + ".tex", "w+")
 
     # Creates Header
@@ -76,19 +77,26 @@ def create():
 
 def load():
     name = input("File Name: ")
-    file = open(name, "r")
+    backup(name)
+    file = open(name + ".tex", "r")
     data = file.readlines()
     file.close()
     counter = 0
+    location = 0
     for x in data:
         counter += 1
         if x == "<|>\n": #Symbol
             print("Found?" + str(counter))
-            data.insert(counter, "Testing\n")
-            file = open(name, "w")
-            for x in data:
-                file.write(x)
-            file.close()
+            print(str(data))
+            location = counter
+         
+    
+    data.insert(location, "Testing\n")
+    
+    file = open(name + ".tex", "w")
+    for x in data:
+        file.write(x)
+    file.close()
     print(data[0])
 
 
