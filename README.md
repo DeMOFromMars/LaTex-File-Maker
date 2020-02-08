@@ -10,6 +10,8 @@ There is an option called 'a' that can be used to make subsections.
 
 Note: Please look at issue 'Need to update instructions' #8 
 
+Also when loading a file, you should first make a backup. You must have <|> on its own line in order for it to insert properly.
+
 
 ## Purpose
 I am using this for my classes. I like using Latex, but I have to keep typing the same thing over and over again or make subsections that are just incrementing numbers
