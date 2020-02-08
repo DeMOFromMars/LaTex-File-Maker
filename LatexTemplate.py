@@ -31,6 +31,39 @@ def backup(name):
         file.write(x)
     file.close()
 
+
+def proc():
+    sopUser = input("Would you like sections or paragraphs?(s/p)")
+    data = []
+    if(sopUser == "p" or sopUser == "P"):
+        number = int(input("How many paragraphs?"))
+    else:
+        number = int(input("How many sections?"))
+
+    num = range(0, number)
+
+    if sopUser == "s" or sopUser == "S":
+        for x in num:
+            data.append("\\section{Problem " + str(x + 1) + "}\n\n")
+
+    if sopUser == "p" or sopUser == "P":
+        for x in num:
+            data.append("\\paragraph{Problem " + str(x + 1) + "}\n\n")
+    if sopUser == "a" or sopUser == "A":
+        for x in range(0, number):
+            data.append("\\section{Problem " + str(x + 1) + "}\n\n")
+            secondary = 0
+            secondary = int(input(str(x + 1) + ").How many subsections?"))
+            char = "a"
+            i = ord(char[0])
+
+            for x in range(0, secondary):
+                char = chr(i)
+                data.append("\\subsection{" + char + ".)}\n\n")
+                i += 1
+    
+    return data
+
 def create():
     fileName = input("Please Enter File Name (no extension): ")
     
@@ -90,8 +123,10 @@ def load():
             print(str(data))
             location = counter
          
-    
-    data.insert(location, "Testing\n")
+    newdata = proc()
+    for x in newdata:
+        data.insert(location, x)
+        location += 1
     
     file = open(name + ".tex", "w")
     for x in data:
