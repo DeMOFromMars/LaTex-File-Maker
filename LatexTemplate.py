@@ -28,6 +28,7 @@ def backup(name):
     data = orig.readlines()
     for x in data:
         file.write(x)
+    file.close()
 
 def create():
     fileName = input("Please Enter File Name (no extension): ")
