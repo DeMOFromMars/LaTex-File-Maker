@@ -1,6 +1,10 @@
 # Latex Template Git Ignore File
 *.xml
 
+
+# Directories
+/venv/*
+
 # Generated Files
 *.tex
 
