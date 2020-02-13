@@ -4,7 +4,7 @@
 # Generated Files
 *.tex
 # Personal Ignore
-venv/*
+venv\*
 # LaTex Compiled Files
 *.aux
 *.log
