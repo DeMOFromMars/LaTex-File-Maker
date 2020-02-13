@@ -3,7 +3,8 @@
 
 # Generated Files
 *.tex
-
+# Personal Ignore
+venv/*
 # LaTex Compiled Files
 *.aux
 *.log
