@@ -118,6 +118,7 @@ if sopUser == "p" or sopUser == "P":
     for x in num:
         file.write("\\paragraph{Problem " + str(x + 1) + "}\n\n")
 if sopUser == "a" or sopUser == "A":
+    
     for x in range(0, number):
         file.write("\\section{Problem " + str(x + 1) + "}\n\n")
         secondary = 0
