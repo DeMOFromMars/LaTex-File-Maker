@@ -58,8 +58,9 @@ def create():
         for x in num:
             file.write("\\paragraph{Problem " + str(x + 1) + "}\n\n")
     if sopUser == "a" or sopUser == "A":
+        sopUser = input("Enter Section Name: ")
         for x in range(0, number):
-            file.write("\\section{Problem " + str(x + 1) + "}\n\n")
+            file.write("\\section{"+ sopUser +  " " + str(x + 1) + "}\n\n")
             secondary = 0
             secondary = int(input(str(x + 1) + ").How many subsections?"))
             char = "a"
