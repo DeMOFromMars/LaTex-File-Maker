@@ -2,26 +2,18 @@
 
 # By Devin M. O'Brien (MasterOfAllEvil)
 
-def checker(var, options):
-    counter = -1
-    for x in options:
-        counter += 1
-        if var == x:
-            return counter
-
 
 def start():
+    print("LaTex File Maker\n===============")
     user = input("Would you like to create a new file or load an existing file (n/l):")
     user = user.upper()
-    option = checker(user, ["N", "L"])
-    print(str(option))
-    if option == 0:
+    if(user == n):
         create()
     else:
-        if option == 1:
-            load()
+        if(user == l):
+        load()
         else:
-            print("Invalid Input")
+            print("Invalid Input")   
 
 def backup(name):
     orig = open(name + ".tex", "r")
@@ -33,7 +25,7 @@ def backup(name):
 
 
 def proc():
-    sopUser = input("Would you like sections or paragraphs?(s/p)")
+    sopUser = input("Would you like sections or paragraphs?(s/p/a)")
     data = []
     if(sopUser == "p" or sopUser == "P"):
         number = int(input("How many paragraphs?"))
