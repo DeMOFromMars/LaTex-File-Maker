@@ -1,6 +1,13 @@
-# Latex Template
+# Latex File Maker
+# Version 1.5
+# Modified 26/8/21
+# By Devin M. O'Brien (MasterOfAllEvil) 
+# Creates a LaTeX file using an interactive prompt
 
-# By Devin M. O'Brien (MasterOfAllEvil)
+# TODO
+# - Add Alternative w/o interactive 
+# - Use OOP Code
+# - Add better dialogue (explanations)
 
 
 def start():
@@ -11,7 +18,7 @@ def start():
         create()
     else:
         if(user == l):
-        load()
+            load()
         else:
             print("Invalid Input")   
 
