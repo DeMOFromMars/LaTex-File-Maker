@@ -1,11 +1,11 @@
 # File: Section
 # Version 1.5
 # By Devin O'Brien
-# Last Modifed 26/8/21
+# Last Modifed 27/8/21
 
 import enum
-import Command
-class Level(Enum):
+from src.Command import Command
+class Level(enum.Enum):
     PART = -1
     CHAPTER = 0
     SECTION = 1
@@ -13,12 +13,24 @@ class Level(Enum):
     SUBSUBSECTION = 3
     PARAGRAPH = 4
     SUBPARAGRAPH = 5
-class Section(Command):
+def Get_Level_Str( level)->str:
+    levels = {
+    Level.PART:"part",
+    Level.CHAPTER:"chapter",
+    Level.SECTION:"section",
+    Level.SUBSECTION:"subsection",
+    Level.SUBSUBSECTION:"subsubsection",
+    level.PARAGRAPH:"paragraph",
+    level.SUBPARAGRAPH:"subparagraph"
+    }
+    return levels.get(level)
+@Command
+class Section:
     """Section """
     __title = None
     __level  = None
-    def __init__(self,title, level=SectionType.SECTION):
-        super.__init__(Get_Level_Str(level), params=[title])
+    def __init__(self,_title:str, level=Level.SECTION):
+        super.__init__(Get_Level_Str(level), params=[_title])
 
     def Get_Title(self):
         return self.__name
@@ -34,17 +46,6 @@ class Section(Command):
             return False
         self.__level = level
         return True
-    def Get_Level_Str(level):
-        levels = [
-        Level.PART:"part",
-        Level.CHAPTER:"chapter",
-        Level.SECTION:"section",
-        Level.SUBSECTION:"subsection",
-        Level.SUBSUBSECTION:"subsubsection",
-        level.PARAGRAPH:"paragraph",
-        level.SUBPARAGRAPH:"subparagraph"
-        ]
-        return levels.get(level)
-        
+      
     def __str__(self):
         return self.Get_Level_Str() + "{"+self.__title+"}"
