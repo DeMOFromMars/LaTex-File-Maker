@@ -1,28 +1,40 @@
 # Latex File Maker
-# Version 1.5
-# Modified 26/8/21
-# By Devin M. O'Brien (MasterOfAllEvil) 
+# Version 1.2
+# Modified 30/8/21
+# By Devin (MasterOfAllEvil)
 # Creates a LaTeX file using an interactive prompt
 
 # TODO
-# - Add Alternative w/o interactive 
-# - Use OOP Code
-# - Add better dialogue (explanations)
+# - Add Alternative w/o interactive
 
+from src import Command, DocumentClass, Section
 
 def start():
+    """Initial menu"""
     print("LaTex File Maker\n===============")
-    user = input("Would you like to create a new file or load an existing file (n/l):")
+
+    # Menu Options
+    options = [
+        ("N", "Create a new LaTeX file", create),
+        ("L", "Edit an existing LaTeX file", load)
+    ]
+    print("Options\n===========\n")
+    for option in options:
+        print(option[0] + "   " + option[1] + "\n")
+
+    # User Selection
+    user = input()
     user = user.upper()
-    if(user == n):
-        create()
-    else:
-        if(user == l):
-            load()
-        else:
-            print("Invalid Input")   
+    valid = False
+    for option in options:
+        if option[0] == user:
+            valid = True
+            option[2]()
+    if not valid:
+        print("Invalid Command")
 
 def backup(name):
+    """Simple backup to prevent data loss"""
     orig = open(name + ".tex", "r")
     file = open(name + "[BACKUP].tex", "w+")
     data = orig.readlines()
@@ -30,7 +42,7 @@ def backup(name):
         file.write(x)
     file.close()
 
-
+# TODO Implement OOP
 def proc():
     sopUser = input("Would you like sections or paragraphs?(s/p/a)")
     data = []
@@ -43,14 +55,19 @@ def proc():
 
     if sopUser == "s" or sopUser == "S":
         for x in num:
-            data.append("\\section{Problem " + str(x + 1) + "}\n\n")
+            data.append(
+                Section.Section("Problem " + str(x+1), Section.Level.SECTION))
 
     if sopUser == "p" or sopUser == "P":
         for x in num:
-            data.append("\\paragraph{Problem " + str(x + 1) + "}\n\n")
+            data.append(
+                Section.Section("Problem" + str(x+1), Section.Level.PARAGRAPH)
+            )
     if sopUser == "a" or sopUser == "A":
         for x in range(0, number):
-            data.append("\\section{Problem " + str(x + 1) + "}\n\n")
+            data.append(
+                Section.Section("Problem " +str(x+1), Section.Level.SUBSECTION)
+            )
             secondary = 0
             secondary = int(input(str(x + 1) + ").How many subsections?"))
             char = "a"
@@ -58,26 +75,29 @@ def proc():
 
             for x in range(0, secondary):
                 char = chr(i)
-                data.append("\\subsection{" + char + ".)}\n\n")
+                data.append(
+                    Section.Section(char +".", Section.Level.SUBSECTION)
+                )
                 i += 1
     
     return data
-
+# TODO Implement OOP
 def create():
     fileName = input("Please Enter File Name (no extension): ")
-    
-    file = open(fileName + ".tex", "w+")
+    doc = []
+
 
     # Creates Header
 
-    file.write("\\documentclass[12pt]{article}\n\n")
+    doc.append(DocumentClass.DocumentClass("article", ["12pt"]))
     title = input("Title: ")
-    file.write("\\title{" + title + "}\n")
+    doc.append(Command.Command("title", None, [title]))
     author = input("Author: ")
-    file.write("\\author{" + author + "}\n")
+    doc.append(Command.Command("author", None, [author]))
+
 
     # Creates Body
-    file.write("\\begin{document}\n")
+    doc.append(Command.Command("begin",[],["document"]))
     sopUser = input("Would you like sections or paragraphs?(s/p)")
 
     number = int(input("How many sections?"))
@@ -86,24 +106,27 @@ def create():
 
     if sopUser == "s" or sopUser == "S":
         for x in num:
-            file.write("\\section{Problem " + str(x + 1) + "}\n\n")
+            doc.append(Section.Section(""))
 
     if sopUser == "p" or sopUser == "P":
         for x in num:
-            file.write("\\paragraph{Problem " + str(x + 1) + "}\n\n")
+            doc.append(Section.Section("",Section.Level.PARAGRAPH))
+
     if sopUser == "a" or sopUser == "A":
         for x in range(0, number):
-            file.write("\\section{Problem " + str(x + 1) + "}\n\n")
-            secondary = 0
+            doc.append(Section.Section("Problem " + str(x+1)))
             secondary = int(input(str(x + 1) + ").How many subsections?"))
             char = "a"
             i = ord(char[0])
-
             for x in range(0, secondary):
                 char = chr(i)
-                file.write("\\subsection{" + char + ".)}\n\n")
+                doc.append(Section.Section(char + ".)"))
                 i += 1
-    file.write("\\end{document}")
+    doc.append(Command.Command("end", [], ["document"]))
+    file = open(fileName + ".tex", "w+")
+    for line in doc:
+        if line != '\n':
+            file.write(str(line) + "\n")
     file.close()
 
 
@@ -113,27 +136,50 @@ def load():
     file = open(name + ".tex", "r")
     data = file.readlines()
     file.close()
-    counter = 0
-    location = 0
-    for x in data:
-        counter += 1
-        if x == "<|>\n": #Symbol
-            print("Found?" + str(counter))
-            print(str(data))
-            location = counter
-         
-    newdata = proc()
-    for x in newdata:
-        data.insert(location, x)
-        location += 1
-    
+    edit(data)
     file = open(name + ".tex", "w")
     for x in data:
-        file.write(x)
+        if(x != '\n'):
+            file.write( "\n" + str(x))
+        else:
+            file.write('\n')
     file.close()
     print(data[0])
+    
+def edit(data):
+    ex = False
+    while ex is False:
+        count = 1
+        for x in data:
+            temp = str(x)
+            if(x is None or len(temp) > 20):
+                temp = temp[0:19]
+            print(str(count) + "). " + temp)
+            count = count + 1
+        user = int(input())
+        if(user == 0):
+            return data
+        if(user < 1 or user > len(data)):
+            print("Invalid Input")
+        else:
+            print("What Operation? (aDD/dELETE)")
+            user2 = input()
+            if user2 == "a":
+                title = Section.Section(input())
+                data.insert(user - 1, title)
+            else:
+                if(user2 ==  "d"):
+                    data.pop(user - 1)
+                else:
+                    print("Bad Value")
+            
+            
+    
 
 
-
-start()
+def __main__():
+    start()
+    
+if __name__ == "__main__":
+    __main__()
 

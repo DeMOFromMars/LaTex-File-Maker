@@ -1,7 +1,7 @@
 # File: Command
-# Version 1.5
-# By Devin O'Brien
-# Last Modified 26/8/21
+# Version 1.2
+# By Devin
+# Last Modified 30/8/21
 
 class Command:
     __name = None
@@ -15,6 +15,10 @@ class Command:
         self.__mod = mod
         self.__params = params
 
+    def getName(self):
+        return self.__name
+    def getParams(self):
+        return self.__params
     def __str__(self):
         out = "\\"
         out = out + self.__name
@@ -23,7 +27,7 @@ class Command:
             counter = 0
             for m in self.__mod:
                 out = out + str(m)
-                if len(self.__mod) != counter:
+                if len(self.__mod) -1 != counter:
                     out = out + ', '
             out = out + ']'
         if len(self.__params) > 0:
