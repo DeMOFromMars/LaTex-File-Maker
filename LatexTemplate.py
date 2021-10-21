@@ -1,22 +1,21 @@
 # Latex File Maker
 # Version 1.2
-# Modified 30/8/21
+# Modified 10/21/21
 # By Devin (MasterOfAllEvil)
 # Creates a LaTeX file using an interactive prompt
 
-# TODO
-# - Add Alternative w/o interactive
 
 from src import Command, DocumentClass, Section
 
 def start():
-    """Initial menu"""
+    """Presents LaTeX File Maker's main menu"""
     print("LaTex File Maker\n===============")
 
     # Menu Options
     options = [
         ("N", "Create a new LaTeX file", create),
-        ("L", "Edit an existing LaTeX file", load)
+        ("L", "Edit an existing LaTeX file", load),
+        ("Q", "Quit Program", quit)
     ]
     print("Options\n===========\n")
     for option in options:
@@ -33,17 +32,20 @@ def start():
     if not valid:
         print("Invalid Command")
 
+def quit():
+    print("Exiting")
+
 def backup(name):
     """Simple backup to prevent data loss"""
-    orig = open(name + ".tex", "r")
+    original = open(name + ".tex", "r")
     file = open(name + "[BACKUP].tex", "w+")
-    data = orig.readlines()
-    for x in data:
-        file.write(x)
+    content = original.readlines()
+    for line in content:
+        file.write(line)
     file.close()
 
-# TODO Implement OOP
 def proc():
+    """Returns an array of sections from user input."""
     sopUser = input("Would you like sections or paragraphs?(s/p/a)")
     data = []
     if(sopUser == "p" or sopUser == "P"):
@@ -52,17 +54,18 @@ def proc():
         number = int(input("How many sections?"))
 
     num = range(0, number)
-
+    # Sections
     if sopUser == "s" or sopUser == "S":
         for x in num:
             data.append(
                 Section.Section("Problem " + str(x+1), Section.Level.SECTION))
-
+    # Paragraphs
     if sopUser == "p" or sopUser == "P":
         for x in num:
             data.append(
                 Section.Section("Problem" + str(x+1), Section.Level.PARAGRAPH)
             )
+    # Custom
     if sopUser == "a" or sopUser == "A":
         for x in range(0, number):
             data.append(
@@ -79,9 +82,8 @@ def proc():
                     Section.Section(char +".", Section.Level.SUBSECTION)
                 )
                 i += 1
-    
     return data
-# TODO Implement OOP
+
 def create():
     fileName = input("Please Enter File Name (no extension): ")
     doc = []
@@ -122,6 +124,7 @@ def create():
                 char = chr(i)
                 doc.append(Section.Section(char + ".)"))
                 i += 1
+
     doc.append(Command.Command("end", [], ["document"]))
     file = open(fileName + ".tex", "w+")
     for line in doc:
@@ -131,25 +134,27 @@ def create():
 
 
 def load():
-    name = input("File Name: ")
+    """Load document from file"""
+    name = input("Please Enter File Name (no extension): ")
     backup(name)
     file = open(name + ".tex", "r")
-    data = file.readlines()
+    content = file.readlines()
     file.close()
-    edit(data)
+    edit(content)
     file = open(name + ".tex", "w")
-    for x in data:
-        if(x != '\n'):
-            file.write( "\n" + str(x))
+    for x in content:
+        if type(x) is not str:
+            file.write(str(x) + "\n")
         else:
-            file.write('\n')
+            file.write(x)
     file.close()
-    print(data[0])
+    print(content[0])
     
 def edit(data):
+    """Edit document data"""
     ex = False
     while ex is False:
-        count = 1
+        count = 1 # Option Count
         for x in data:
             temp = str(x)
             if(x is None or len(temp) > 20):
